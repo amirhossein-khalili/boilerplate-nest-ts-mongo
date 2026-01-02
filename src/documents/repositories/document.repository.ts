@@ -27,8 +27,7 @@ export class DocumentRepository implements IDocumentRepository, OnModuleInit {
   async create(document: Document): Promise<string> {
     const { contentType, filename, metadata, stream } = document;
     const uploadStream = this.bucket.openUploadStream(filename, {
-      metadata,
-      contentType,
+      metadata: { ...metadata, contentType },
     });
     const fileId = new Promise<string>((resolve, reject) => {
       const events = new Map();

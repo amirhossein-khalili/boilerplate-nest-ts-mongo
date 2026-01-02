@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Model, Document } from "mongoose";
 import { PaginatedResponse } from "../interfaces/paginate.interface";
-import { IBaseRepository } from "./interfaces/base.repository.interface";
+import { IBaseRepository } from "../interfaces/base.repository.interface";
 
 @Injectable()
 export abstract class BaseRepository<T extends Document>

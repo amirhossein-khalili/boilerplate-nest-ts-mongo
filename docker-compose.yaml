@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: boilerplate
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.development.local
+
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - boilerplate
+
+  mongodb:
+    image: mongo:8.0.10
+    container_name: mongodb_boilerplate
+    ports:
+      - "9050:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - boilerplate
+
+  redis:
+    image: redis:7.4.2
+    container_name: redis_boilerplate
+    ports:
+      - "9051:6379"
+    networks:
+      - boilerplate
+
+volumes:
+  mongo_data:
+
+networks:
+  boilerplate:

@@ -39,7 +39,7 @@ export abstract class BaseRepository<T extends Document>
 
   async paginate(
     page: number,
-    pageSize: number
+    pageSize: number,
   ): Promise<PaginatedResponse<T>> {
     const totalDocs = await this.model.countDocuments().exec();
     const docs = await this.model

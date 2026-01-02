@@ -17,7 +17,7 @@ services:
       - boilerplate
 
   mongodb:
-    image: mongo:8.0.10
+    image: bitnami/mongodb:latest
     container_name: mongodb_boilerplate
     ports:
       - "9050:27017"
@@ -27,7 +27,7 @@ services:
       - boilerplate
 
   redis:
-    image: redis:7.4.2
+    image: bitnami/redis:latest
     container_name: redis_boilerplate
     ports:
       - "9051:6379"

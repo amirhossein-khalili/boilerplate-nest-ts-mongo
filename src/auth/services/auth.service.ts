@@ -9,11 +9,11 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import Redis from 'ioredis';
 import { IUserRepository } from 'src/users/interfaces';
-import { USER_REPOSITORY } from 'src/common';
+import { USER_REPOSITORY } from '../../common';
 import { IAuthService } from '../interfaces';
 import { LoginDto, VerifyOtpDto } from '../dtos';
 import { v4 as uuidv4 } from 'uuid';
-import generateOTP from '../common/generate-otp.utils';
+import generateOTP from '../utils/generate-otp.utils';
 import { UserNotFoundException } from '../exceptions';
 
 @Injectable()

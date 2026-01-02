@@ -6,7 +6,8 @@ import { JwtStrategy } from './strategies';
 import { AuthService } from './services/auth.service';
 import { UserModule } from '../users/user.module';
 import { AuthController } from './controllers/auth-controller';
-import { AUTH_SERVICE } from './common/constraints';
+import { AUTH_SERVICE } from './utils/constraints';
+import { RedisModule } from '../common/redis/redis.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AUTH_SERVICE } from './common/constraints';
       secret: process.env.JWT_SECRET || 'default-secret',
       signOptions: { expiresIn: '7d' },
     }),
+    RedisModule,
   ],
   controllers: [AuthController],
   providers: [{ provide: AUTH_SERVICE, useClass: AuthService }, JwtStrategy],

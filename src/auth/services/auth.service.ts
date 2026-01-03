@@ -69,8 +69,8 @@ export class AuthService implements IAuthService {
 
     const payload = {
       sub: user._id,
-      phoneNumber: user.phoneNumber,
-      role: user.role,
+      phoneNumber: user.phone,
+      // role: user.role,
     };
 
     const accessToken = this.jwt.sign(payload, { expiresIn: '15m' });

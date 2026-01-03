@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: boilerplate
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.development.local
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - boilerplate
+    volumes:
+      - ./src:/usr/src/app/src
+      - /usr/src/app/node_modules
+
+    command: yarn start:dev
+
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+
+  mongodb:
+    image: mongo:8.0.10
+    container_name: mongodb_boilerplate
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - boilerplate
+
+  redis:
+    image: redis:7.4.2
+    container_name: redis_boilerplate
+    ports:
+      - "6379:6379"
+    networks:
+      - boilerplate
+
+volumes:
+  mongo_data:
+
+networks:
+  boilerplate:

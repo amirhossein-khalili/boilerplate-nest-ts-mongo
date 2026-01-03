@@ -1,34 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-import { CreateUserDto } from '../dtos';
-import { UserDocument, UserEntity } from '../models/user.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User, UserDocument } from '../models/user.entity';
 import { IUserRepository } from '../interfaces';
+import { BaseRepository } from '../../common';
 
 @Injectable()
-export class UserRepository implements IUserRepository {
-  constructor(
-    @InjectModel(UserEntity.name)
-    private UserModel: Model<UserDocument>,
-    @InjectConnection() private readonly connection: mongoose.Connection,
-  ) {}
-
-  findByEmail(data: { email: string }): Promise<any> {
-    throw new Error('Method not implemented.');
+export class UserRepository
+  extends BaseRepository<UserDocument>
+  implements IUserRepository
+{
+  constructor(@InjectModel(User.name) model: Model<UserDocument>) {
+    super(model);
   }
 
-  async create(data: CreateUserDto): Promise<any> {
-    return this.UserModel.create({
-      _id: data.id,
-      phoneNumber: data.phoneNumber,
-    });
+  async findByPhoneNumber(phoneNumber: string): Promise<UserDocument | null> {
+    return this.model.findOne({ phone: phoneNumber }).exec();
   }
 
-  async findByPhoneNumber(phoneNumber: string): Promise<UserEntity> {
-    return this.UserModel.findOne({ phoneNumber });
-  }
-
-  async getUserById(id: string): Promise<any> {
-    return this.UserModel.findById(id).lean();
+  async getUserById(id: string): Promise<User | null> {
+    return this.model.findById(id).lean<User>().exec();
   }
 }

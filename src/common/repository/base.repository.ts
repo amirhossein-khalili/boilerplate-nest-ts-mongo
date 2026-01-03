@@ -4,16 +4,20 @@ import { PaginatedResponse } from '../interfaces/paginate.interface';
 import { IBaseRepository } from '../interfaces/base.repository.interface';
 
 @Injectable()
-export abstract class BaseRepository<
-  T extends Document,
-> implements IBaseRepository<T> {
+export abstract class BaseRepository<T extends Document>
+  implements IBaseRepository<T>
+{
   protected readonly model: Model<T>;
+
   constructor(model: Model<T>) {
     this.model = model;
   }
 
   async create(createDto: any): Promise<T> {
-    const createdEntity = new this.model(createDto);
+    const createdEntity = new this.model({
+      _id: createDto._id ?? createDto.id,
+      ...createDto,
+    });
     return createdEntity.save();
   }
 
@@ -37,23 +41,17 @@ export abstract class BaseRepository<
     return this.model.findByIdAndDelete(id).exec();
   }
 
-  async paginate(
-    page: number,
-    pageSize: number,
-  ): Promise<PaginatedResponse<T>> {
+  async paginate(page: number, pageSize: number): Promise<PaginatedResponse<T>> {
     const totalDocs = await this.model.countDocuments().exec();
     const docs = await this.model
       .find()
-      .skip((page - 1) * pageSize)
-      .limit(pageSize)
+      .skip((Number(page) - 1) * Number(pageSize))
+      .limit(Number(pageSize))
       .exec();
 
-    const totalPages = Math.ceil(totalDocs / pageSize);
-    const hasNextPage = page * pageSize < totalDocs;
-    const hasPrevPage = page > 1;
-    const nextPage = hasNextPage ? Number(page) + 1 : null;
-    const prevPage = hasPrevPage ? Number(page) - 1 : null;
-    const currentPage = (Number(page) - 1) * Number(pageSize) + 1;
+    const totalPages = Math.ceil(totalDocs / Number(pageSize));
+    const hasNextPage = Number(page) * Number(pageSize) < totalDocs;
+    const hasPrevPage = Number(page) > 1;
 
     return {
       docs,
@@ -63,8 +61,8 @@ export abstract class BaseRepository<
       pageSize: Number(pageSize),
       hasNextPage,
       hasPrevPage,
-      nextPage,
-      prevPage,
+      nextPage: hasNextPage ? Number(page) + 1 : null,
+      prevPage: hasPrevPage ? Number(page) - 1 : null,
     };
   }
 }

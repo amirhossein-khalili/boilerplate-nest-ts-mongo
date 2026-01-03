@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserEntity, UserSchema } from './models/user.entity';
+import { User, UserSchema } from './models/user.entity';
 import { UserRepository } from './repositories/user.repository';
 import { USER_CONFIG, USER_SERVICE, USER_REPOSITORY } from '../common';
 import { UserController } from './controllers/user.controller';
@@ -8,7 +8,7 @@ import { UserService } from './services/user.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: UserEntity.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [UserController],
   providers: [

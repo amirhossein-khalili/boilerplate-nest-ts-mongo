@@ -15,7 +15,6 @@ export async function deleteHashFieldsInBulk(
   await pipeline.exec();
 }
 
-
 export async function deleteKeysInBulk(
   redis: Redis,
   keys: string[],

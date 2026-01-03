@@ -1,4 +1,4 @@
-import { PaginatedResponse } from "./paginate.interface";
+import { PaginatedResponse } from './paginate.interface';
 
 export interface IBaseRepository<T> {
   create(createDto: any): Promise<T>;

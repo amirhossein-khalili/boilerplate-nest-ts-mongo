@@ -3,6 +3,7 @@ import {
   Get,
   HttpException,
   Inject,
+  Param,
   Post,
   Req,
   Res,
@@ -13,7 +14,6 @@ import { SwaggerGet, SwaggerPost } from 'src/common';
 import Busboy from 'busboy';
 import { Response } from 'express';
 import * as events from 'node:events';
-import { ParamEx as Param } from '../../common';
 import { Auth } from '../../auth/utils';
 
 @ApiTags('documents')
@@ -116,127 +116,4 @@ export class DocumentController {
       return res.sendStatus(500);
     }
   }
-
-  // /**
-  //  * CAUTION!
-  //  * DO NOT EXPOSE IN GATEWAY.
-  //  */
-  // @Delete(':id')
-  // @SwaggerDelete('delete a document', false)
-  // async deleteDocument(
-  //   @Param('id') id: string,
-  //   @Headers('X-Metadata') metadata: any,
-  // ) {
-  //   try {
-  //     return await this.documentsService.deleteDocument(
-  //       { id },
-  //       JSON.parse(metadata),
-  //     );
-  //   } catch (e) {
-  //     return {
-  //       success: false,
-  //       data: { id },
-  //       meta: {
-  //         ...JSON.parse(metadata),
-  //         messages: [
-  //           {
-  //             level: 'error',
-  //             service: 'com.chargoon.cloud.svc.documents',
-  //             domain: 'documents',
-  //             context: 'deleteDocument',
-  //             exception: e,
-  //             message: e?.message || e,
-  //           },
-  //         ],
-  //         exception: e?.message || e,
-  //       },
-  //     };
-  //   }
-  // }
-
-  // @Get('download/:id')
-  // @SwaggerGet('download a document', false)
-  // async downloadDocument(
-  //   @Param('id') id: string,
-  //   @Headers('X-Metadata') metadata: any,
-  //   @Res() res: any,
-  // ) {
-  //   try {
-  //     const document = await this.documentsService.getDocument(
-  //       { id },
-  //       JSON.parse(metadata),
-  //     );
-  //     res.header('Content-Type', document.contentType);
-  //     res.header(
-  //       'Content-Disposition',
-  //       `attachment; filename=${document.filename}`,
-  //     );
-  //     return document.stream.pipe(res);
-  //   } catch (e) {
-  //     return handleErrorResponse(e, res, 'downloadDocument', this.logger);
-  //   }
-  // }
-
-  // @Get('multi/:ids')
-  // @SwaggerGet('get many documents as base64', false)
-  // async getMultiDocument(
-  //   @Param('ids') ids: string,
-  //   @Headers('X-Metadata') metadata: any,
-  // ) {
-  //   const arrayOfId: string[] = ids.split(',');
-  //   return this.documentsService.gatMultiDocumentAsBase64(
-  //     { ids: arrayOfId },
-  //     JSON.parse(metadata),
-  //   );
-  // }
-
-  // @RpcQuery('documents', 'documents', 'get_used_space_size')
-  // @UseInterceptors(new RpcValidator(OrganizationSpaceSizeDto))
-  // async getUsedSpaceSize(
-  //   @Param() data: OrganizationSpaceSizeDto,
-  //   @Headers() headers: any,
-  // ) {
-  //   const { __meta, ...d } = data;
-  //   return this.documentsService.getUsedSpaceSize(
-  //     d,
-  //     await this.getMetadata(data, headers),
-  //   );
-  // }
-
-  // @Get('organizations/:organizationId')
-  // @SwaggerGet('get an organization documents', false)
-  // @RpcQuery('documents', 'documents', 'get_organization_documents')
-  // @UseInterceptors(
-  //   new RpcValidator(GetOrganizationDocumentsDto),
-  //   AuthzInterceptor,
-  // )
-  // @ApiQuery({
-  //   name: 'domain',
-  //   type: String,
-  //   required: false,
-  //   example: 'correspondence',
-  // })
-  // @ApiQuery({
-  //   name: 'limit',
-  //   type: Number,
-  //   required: false,
-  //   example: 10,
-  // })
-  // @ApiQuery({
-  //   name: 'offset',
-  //   type: Number,
-  //   required: false,
-  //   example: 0,
-  // })
-  // async getOrganizationDocuments(
-  //   @Param() data: GetOrganizationDocumentsDto,
-  //   @Headers() headers: any,
-  //   @Req() req: any,
-  // ) {
-  //   const { __meta, ...d } = data;
-  //   return this.documentsService.getOrganizationDocuments(
-  //     d,
-  //     await this.getMetadata(data, headers, req, { pagination: true }),
-  //   );
-  // }
 }

@@ -13,7 +13,7 @@ import { USER_REPOSITORY } from 'src/common';
 import { IAuthService } from '../interfaces';
 import { LoginDto, VerifyOtpDto } from '../dtos';
 import { v4 as uuidv4 } from 'uuid';
-import generateOTP from '../common/generate-otp.utils';
+import generateOTP from '../utils/generate-otp.utils';
 import { UserNotFoundException } from '../exceptions';
 
 @Injectable()

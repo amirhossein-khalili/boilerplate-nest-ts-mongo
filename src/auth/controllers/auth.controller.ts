@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { SwaggerPost } from '../../common';
 import { IAuthService } from '../interfaces/auth.service.interface';
 import { LoginDto, VerifyOtpDto } from '../dtos';
-import { AUTH_SERVICE } from '../common/constraints';
+import { AUTH_SERVICE } from '../utils/constraints';
 
 @ApiTags('auth')
 @ApiBearerAuth()

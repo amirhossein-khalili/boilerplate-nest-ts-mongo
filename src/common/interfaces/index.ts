@@ -1,2 +1,2 @@
-export * from './paginate.interface'
-export * from './user-meta.interface'
+export * from './paginate.interface';
+export * from './user-meta.interface';

@@ -1,4 +1,3 @@
-
 import { CreateDto } from '../dtos/create.dto';
 import { Document } from '../models/document.entity';
 import { GetDocumentDto } from '../dtos';

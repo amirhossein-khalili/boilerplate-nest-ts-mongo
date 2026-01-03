@@ -1,12 +1,12 @@
-import { Injectable } from "@nestjs/common";
-import { Model, Document } from "mongoose";
-import { PaginatedResponse } from "../interfaces/paginate.interface";
-import { IBaseRepository } from "./interfaces/base.repository.interface";
+import { Injectable } from '@nestjs/common';
+import { Model, Document } from 'mongoose';
+import { PaginatedResponse } from '../interfaces/paginate.interface';
+import { IBaseRepository } from '../interfaces/base.repository.interface';
 
 @Injectable()
-export abstract class BaseRepository<T extends Document>
-  implements IBaseRepository<T>
-{
+export abstract class BaseRepository<
+  T extends Document,
+> implements IBaseRepository<T> {
   protected readonly model: Model<T>;
   constructor(model: Model<T>) {
     this.model = model;

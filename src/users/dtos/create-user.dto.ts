@@ -1,21 +1,61 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
-import { IsString, IsUUID } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsInt,
+  Min,
+  Max,
+  IsUUID,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsUUID()
-  @Expose()
-  @ApiProperty({
-    description: 'create id',
-    example: '6ffaf78d-a6f6-4b45-a378-71c4d732a36f',
-  })
-  public id: string;
+  @IsNotEmpty()
+  id: string;
 
   @IsString()
-  @Expose()
-  @ApiProperty({
-    description: 'user phone number',
-    example: '09210848772',
-  })
-  public phoneNumber: string;
+  @IsNotEmpty()
+  phone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsOptional()
+  @IsString()
+  userName?: string;
+
+  @IsOptional()
+  @IsString()
+  nationalId?: string;
+
+  @IsOptional()
+  @IsString()
+  imageId?: string;
+
+  @IsOptional()
+  @IsString()
+  gender?: string;
+
+  @IsOptional()
+  @IsString()
+  lastName?: string;
+
+  @IsOptional()
+  @IsString()
+  firstName?: string;
+
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @IsOptional()
+  @IsString()
+  city?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(150)
+  age?: number;
 }

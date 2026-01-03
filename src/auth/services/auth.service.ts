@@ -8,8 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import Redis from 'ioredis';
-import { IUserRepository } from 'src/users/interfaces';
-import { USER_REPOSITORY } from 'src/common';
+import { IUserRepository, USER_REPOSITORY } from '../../users/interfaces';
 import { IAuthService } from '../interfaces';
 import { LoginDto, VerifyOtpDto } from '../dtos';
 import { v4 as uuidv4 } from 'uuid';
@@ -30,7 +29,8 @@ export class AuthService implements IAuthService {
     if (!user) {
       user = await this.repository.create({
         id: uuidv4(),
-        phoneNumber: data.phoneNumber,
+        phone: data.phoneNumber,
+        password: '',
       });
     }
     const rateLimitKey = `otp:limit:${data.phoneNumber}`;

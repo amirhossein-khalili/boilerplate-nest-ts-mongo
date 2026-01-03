@@ -2,9 +2,10 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './models/user.entity';
 import { UserRepository } from './repositories/user.repository';
-import { USER_CONFIG, USER_SERVICE, USER_REPOSITORY } from '../common';
+import { USER_CONFIG } from '../common';
 import { UserController } from './controllers/user.controller';
 import { UserService } from './services/user.service';
+import { USER_REPOSITORY, USER_SERVICE } from './interfaces';
 
 @Module({
   imports: [

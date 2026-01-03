@@ -2,7 +2,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Document, DocumentSchema } from './models/document.entity';
 import { DocumentController } from './controllers/document.controller';
-import { DocumentService } from './services/document.service';
+// import { DocumentService } from './services/document.service';
 import { DocumentRepository } from './repositories/document.repository';
 import {
   DOCUMENT_CONFIG,
@@ -18,7 +18,7 @@ import {
   ],
   controllers: [DocumentController],
   providers: [
-    { provide: DOCUMENT_SERVICE, useClass: DocumentService },
+    // { provide: DOCUMENT_SERVICE, useClass: DocumentService },
     { provide: DOCUMENT_REPOSITORY, useClass: DocumentRepository },
   ],
   exports: [DOCUMENT_SERVICE, DOCUMENT_REPOSITORY, MongooseModule],

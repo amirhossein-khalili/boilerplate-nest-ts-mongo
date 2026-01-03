@@ -4,9 +4,9 @@ import { PaginatedResponse } from '../interfaces/paginate.interface';
 import { IBaseRepository } from '../interfaces/base.repository.interface';
 
 @Injectable()
-export abstract class BaseRepository<T extends Document>
-  implements IBaseRepository<T>
-{
+export abstract class BaseRepository<
+  T extends Document,
+> implements IBaseRepository<T> {
   protected readonly model: Model<T>;
 
   constructor(model: Model<T>) {
@@ -41,7 +41,10 @@ export abstract class BaseRepository<T extends Document>
     return this.model.findByIdAndDelete(id).exec();
   }
 
-  async paginate(page: number, pageSize: number): Promise<PaginatedResponse<T>> {
+  async paginate(
+    page: number,
+    pageSize: number,
+  ): Promise<PaginatedResponse<T>> {
     const totalDocs = await this.model.countDocuments().exec();
     const docs = await this.model
       .find()

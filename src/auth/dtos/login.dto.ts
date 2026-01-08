@@ -10,5 +10,5 @@ export class LoginDto {
     description: 'phone number',
     example: '09210848772',
   })
-  public phoneNumber: string;
+  public phone: string;
 }

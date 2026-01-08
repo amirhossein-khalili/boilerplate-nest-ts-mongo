@@ -24,6 +24,7 @@ export class UserService implements IUserService {
     console.log('Request Metadata:', meta);
   }
 
+  // Check if user exists
   async checkUserExist(
     data: CheckUserExistDto,
     meta: IMetaData,
@@ -44,10 +45,11 @@ export class UserService implements IUserService {
     return { exists: !!foundUser };
   }
 
+  // Find user by userName
   async findUserByUserName(
     data: { userName: string },
     meta: IMetaData,
-  ): Promise<any> {
+  ): Promise<IUserEntity | null> {
     this.handleMetaData(meta);
 
     const user = await this.repository.findOne({ userName: data.userName });
@@ -58,10 +60,11 @@ export class UserService implements IUserService {
     return user;
   }
 
+  // Find user by phone
   async findUserByPhone(
     data: { phone: string },
     meta: IMetaData,
-  ): Promise<any> {
+  ): Promise<IUserEntity | null> {
     this.handleMetaData(meta);
 
     const user = await this.repository.findOne({ phone: data.phone });
@@ -72,16 +75,15 @@ export class UserService implements IUserService {
     return user;
   }
 
-  async createUser(data: CreateUserDto, meta: IMetaData): Promise<any> {
+  // Create user
+  async createUser(data: CreateUserDto, meta: IMetaData): Promise<IUserEntity> {
     this.handleMetaData(meta);
 
     if (!data.id) {
       throw new ConflictException('ID is required');
     }
 
-    const existingPhone = await this.repository.findOne({
-      phone: data.phone,
-    });
+    const existingPhone = await this.repository.findOne({ phone: data.phone });
     if (existingPhone) {
       throw new ConflictException('Phone number already exists');
     }
@@ -96,17 +98,17 @@ export class UserService implements IUserService {
     }
 
     const createdUser = await this.repository.create(data);
-
     return createdUser;
   }
 
+  // Get user by ID
   async getUserById(
     data: GetUserDto,
     meta: IMetaData,
   ): Promise<IUserEntity | null> {
     this.handleMetaData(meta);
 
-    const user = await this.repository.findById(data.id);
+    const user = await this.repository.getUserById(data.id);
     if (!user) {
       throw new NotFoundException('User not found');
     }

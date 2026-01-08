@@ -5,14 +5,18 @@ export interface IUserMeta {
 }
 
 export interface IMessage {
-  type: MessageType; // Message type (info, error, etc.)
-  code?: string; // Optional code, useful for error codes or specific identifiers
-  message: string; // The content of the message
-  timestamp: number; // When the message was created
-  correlationId?: string; // Optional: can be used to link messages across systems
+  type: MessageType;
+
+  code?: string;
+
+  message: string;
+
+  timestamp: number;
+
+  correlationId?: string;
 }
 
-enum MessageType {
+export enum MessageType {
   INFO = 'INFO',
   ERROR = 'ERROR',
   WARNING = 'WARNING',
@@ -30,15 +34,13 @@ export interface IMetaData {
 
   causationId: string;
 
-  httpHeaders?: Record<string, string>;
-
   pagination?: {
     limit?: number;
     offset?: number;
     total?: number;
   };
 
-  user: IUserMeta;
+  user?: IUserMeta;
 
   messages?: IMessage[];
 }

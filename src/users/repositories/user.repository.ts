@@ -14,8 +14,8 @@ export class UserRepository
     super(model);
   }
 
-  async findByPhoneNumber(phoneNumber: string): Promise<UserDocument | null> {
-    return this.model.findOne({ phone: phoneNumber }).exec();
+  async findByphone(phone: string): Promise<UserDocument | null> {
+    return this.model.findOne({ phone: phone }).exec();
   }
 
   async getUserById(id: string): Promise<User | null> {

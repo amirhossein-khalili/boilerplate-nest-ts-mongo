@@ -13,15 +13,16 @@ export class AuthController {
 
   @Post('/login')
   @ApiBody({ type: LoginDto })
-  @SwaggerPost('create new OTP')
+  @SwaggerPost('create new OTP') // Custom Swagger documentation description
   async login(@Body() data: LoginDto) {
-    return await this.svc.login(data);
+    return await this.svc.login(data); // Call AuthService to handle login logic
   }
 
+  // Handle OTP verification and create JWT tokens
   @Post('/login/otp/verify')
   @ApiBody({ type: VerifyOtpDto })
-  @SwaggerPost('verify otp , create tokens')
+  @SwaggerPost('verify otp, create tokens') // Custom Swagger documentation description
   async verifyOtp(@Body() data: VerifyOtpDto) {
-    return await this.svc.verifyOtp(data);
+    return await this.svc.verifyOtp(data); // Call AuthService to handle OTP verification and token creation
   }
 }

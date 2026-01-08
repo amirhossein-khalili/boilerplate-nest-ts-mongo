@@ -5,3 +5,4 @@ export * from './decorators';
 export * from './enums';
 export * from './constants';
 export * from './repository';
+export * from './controller'
